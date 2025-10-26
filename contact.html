@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - PorchDecor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">PorchDecor</a>
+                <ul class="nav-links">
+                    <li><a href="holidays.html">Holidays</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>Get In Touch</h1>
+            <p>We'd love to hear from you. Let's start a conversation.</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="content-section" style="background: var(--light-gray);">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+                <!-- Contact Form -->
+                <div class="content-card">
+                    <h2>Send Us a Message</h2>
+                    <p style="margin-bottom: 2rem;">Whether you're interested in becoming a customer, grower, or logistics partner - or just have questions - we're here to help.</p>
+                    
+                    <form id="contactForm" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest">I'm Interested In *</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select an option...</option>
+                                <option value="consumer">Becoming a Customer</option>
+                                <option value="grower">Becoming a Grower Partner</option>
+                                <option value="logistics">Becoming a Logistics Partner</option>
+                                <option value="investor">Investment Opportunities</option>
+                                <option value="press">Press & Media</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Your Location (City, State)</label>
+                            <input type="text" id="location" name="location" placeholder="e.g., Portland, OR">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Your Message *</label>
+                            <textarea id="message" name="message" required placeholder="Tell us more about your interest or question..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+
+                    <div id="formSuccess" style="display: none; margin-top: 2rem; padding: 1.5rem; background: #d1fae5; border-radius: 10px; color: #065f46;">
+                        <strong>Thank you!</strong> We've received your message and will respond within 1-2 business days.
+                    </div>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <div class="content-card" style="margin-bottom: 2rem;">
+                        <h2>Other Ways to Reach Us</h2>
+                        
+                        <h3 style="margin-top: 2rem;">📧 Email</h3>
+                        <p>General Inquiries: <a href="mailto:hello@porchdecor.com" style="color: var(--primary);">hello@porchdecor.com</a></p>
+                        <p>Grower Partnerships: <a href="mailto:growers@porchdecor.com" style="color: var(--primary);">growers@porchdecor.com</a></p>
+                        <p>Logistics Partnerships: <a href="mailto:logistics@porchdecor.com" style="color: var(--primary);">logistics@porchdecor.com</a></p>
+                        
+                        <h3 style="margin-top: 2rem;">📍 Location</h3>
+                        <p>We're a distributed team working across multiple regions. Our headquarters will be announced soon!</p>
+
+                        <h3 style="margin-top: 2rem;">⏰ Response Time</h3>
+                        <p>We typically respond to inquiries within 1-2 business days. During peak seasons (September-December), responses may take up to 3 business days.</p>
+                    </div>
+
+                    <div class="content-card">
+                        <h2>FAQ</h2>
+                        
+                        <h3>When will PorchDecor launch?</h3>
+                        <p>We're launching region by region throughout 2025. Join our waitlist to be notified when we launch in your area.</p>
+
+                        <h3>What regions do you serve?</h3>
+                        <p>We're starting in the Northeast and Midwest, with plans to expand nationwide. Tell us where you're located so we can prioritize your region!</p>
+
+                        <h3>How do I become a partner?</h3>
+                        <p>Use the contact form to express your interest, and we'll send you detailed information about our partnership programs.</p>
+
+                        <h3>Do you offer wholesale pricing?</h3>
+                        <p>Yes! We work with growers on fair wholesale pricing and offer volume discounts for large orders. Contact us for details.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="content-section" style="background: white; padding: 4rem 0;">
+        <div class="container">
+            <div class="content-card" style="text-align: center;">
+                <h2>Join Our Community</h2>
+                <p style="max-width: 600px; margin: 0 auto 2rem;">Be the first to know when PorchDecor launches in your area. Join our mailing list for updates, seasonal tips, and exclusive early-access opportunities.</p>
+                
+                <form id="emailSignup" onsubmit="handleEmailSignup(event)" style="max-width: 500px; margin: 0 auto; display: flex; gap: 1rem;">
+                    <input type="email" placeholder="Enter your email" required style="flex: 1; padding: 0.875rem; border: 2px solid #e5e7eb; border-radius: 10px; font-size: 1rem;">
+                    <button type="submit" class="btn btn-primary">Join Waitlist</button>
+                </form>
+
+                <div id="emailSuccess" style="display: none; margin-top: 1.5rem; color: var(--green); font-weight: 600;">
+                    ✓ Thanks for joining! We'll keep you updated.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PorchDecor</h4>
+                    <p>Connecting communities through seasonal celebrations</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="holidays.html">Holidays</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Get Started</h4>
+                    <ul>
+                        <li><a href="consumer.html">For Consumers</a></li>
+                        <li><a href="grower.html">For Growers</a></li>
+                        <li><a href="logistics.html">For Logistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <p>Email: hello@porchdecor.com</p>
+                    <p>Follow our journey</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PorchDecor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
