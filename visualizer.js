@@ -198,7 +198,15 @@ function displayResults() {
         const visualizationImage = generateVisualizationPlaceholder(packageKey);
         
         card.innerHTML = `
-            <img src="${visualizationImage}" alt="${pkg.name}" class="result-image">
+            <div style="position: relative;">
+                <img src="${visualizationImage}" alt="${pkg.name}" class="result-image" onerror="this.src='https://via.placeholder.com/600x400/FF6B35/FFFFFF?text=${pkg.name.replace(' ', '+')}'">
+                <div style="position: absolute; top: 10px; left: 10px; background: rgba(255, 107, 53, 0.95); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.9rem;">
+                    ${pkg.name}
+                </div>
+                <div style="position: absolute; bottom: 10px; right: 10px; background: rgba(0, 0, 0, 0.7); color: white; padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem;">
+                    AI Preview
+                </div>
+            </div>
             <div class="result-content">
                 <h3>${pkg.name}</h3>
                 <div class="price-tag">${pkg.price}</div>
@@ -232,12 +240,20 @@ function displayResults() {
 
 // Generate placeholder visualization (temporary until real AI integration)
 function generateVisualizationPlaceholder(packageKey) {
-    // These would be replaced with actual AI-generated images
+    // Using the user's uploaded image with an overlay indicator
+    // In production, this will be replaced with actual AI-generated images
+    
+    if (uploadedImage) {
+        // Return the user's image for now - we'll add overlay in the display
+        return uploadedImage;
+    }
+    
+    // Fallback placeholders using reliable CDN
     const placeholders = {
-        basic: 'https://images.unsplash.com/photo-1570465073768-ca0741e30ad2?w=600&h=400&fit=crop',
-        amazing: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&h=400&fit=crop',
-        wow: 'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=600&h=400&fit=crop',
-        custom: 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=600&h=400&fit=crop'
+        basic: 'https://cdn.pixabay.com/photo/2017/09/30/15/10/pumpkins-2802130_960_720.jpg',
+        amazing: 'https://cdn.pixabay.com/photo/2016/09/29/13/08/pumpkins-1702881_960_720.jpg',
+        wow: 'https://cdn.pixabay.com/photo/2017/10/05/21/08/pumpkin-2822763_960_720.jpg',
+        custom: 'https://cdn.pixabay.com/photo/2016/10/31/18/14/halloween-1786329_960_720.jpg'
     };
     
     return placeholders[packageKey];
