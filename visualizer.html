@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Porch Visualizer - PorchDecor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .visualizer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .upload-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .upload-area {
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 2rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--light-gray);
+        }
+
+        .upload-area:hover {
+            background: #fef3f0;
+            border-color: var(--secondary);
+        }
+
+        .upload-area.dragover {
+            background: #fef3f0;
+            border-color: var(--secondary);
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        .preview-section {
+            display: none;
+            margin: 2rem 0;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .email-capture {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 2rem auto;
+            display: none;
+        }
+
+        .email-capture input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin: 1rem 0;
+        }
+
+        .results-section {
+            display: none;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .result-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .result-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background: var(--light-gray);
+        }
+
+        .result-content {
+            padding: 2rem;
+        }
+
+        .result-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 1rem 0;
+        }
+
+        .package-includes {
+            background: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            text-align: left;
+        }
+
+        .package-includes h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .package-includes ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .package-includes li {
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            color: var(--gray);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .package-includes li:before {
+            content: "🎃";
+            position: absolute;
+            left: 0;
+            font-size: 0.9rem;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .spinner {
+            border: 4px solid var(--light-gray);
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            display: none;
+        }
+
+        .custom-package-notice {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+        }
+
+        .phone-input-section {
+            display: none;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--light-gray);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">PorchDecor</a>
+                <ul class="nav-links">
+                    <li><a href="holidays.html">Holidays</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1>🎃 See YOUR Porch Transformed!</h1>
+            <p>Upload a photo and see what your porch could look like with our amazing pumpkin packages</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <section class="content-section" style="background: var(--light-gray);">
+        <div class="visualizer-container">
+            
+            <!-- Upload Section -->
+            <div class="upload-section">
+                <h2>Step 1: Upload Your Porch Photo</h2>
+                <p style="color: var(--gray); margin-bottom: 2rem;">Take a clear photo of your front porch or house entrance</p>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📸</div>
+                    <h3>Drag & Drop Your Photo Here</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;">or click to browse</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">Choose Photo</button>
+                </div>
+                
+                <input type="file" id="fileInput" accept="image/*" onchange="handleFileSelect(event)">
+                
+                <div class="preview-section" id="previewSection">
+                    <h3>Your Porch:</h3>
+                    <img id="previewImage" class="preview-image" alt="Your porch preview">
+                    <button class="btn btn-outline" style="margin-top: 1rem; border-color: var(--primary); color: var(--primary);" onclick="resetUpload()">Choose Different Photo</button>
+                </div>
+            </div>
+
+            <!-- Email Capture -->
+            <div class="email-capture" id="emailCapture">
+                <h2>Step 2: Get Your Results</h2>
+                <p style="color: var(--gray); margin-bottom: 1rem;">Enter your email to see your personalized visualizations</p>
+                <input type="email" id="emailInput" placeholder="your.email@example.com" required>
+                <button class="btn btn-primary" style="width: 100%;" onclick="generateVisualizations()">Show Me My Options!</button>
+                <p style="font-size: 0.85rem; color: var(--gray); margin-top: 1rem;">We'll email you these images so you can review them anytime</p>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner"></div>
+                <h3 style="margin-top: 2rem;">Creating Your Personalized Visualizations...</h3>
+                <p style="color: var(--gray);">This will just take a moment</p>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage">
+                <strong>✓ Results sent to your email!</strong> Check your inbox for your personalized porch visualizations.
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section" id="resultsSection">
+                <div class="content-card">
+                    <h2 style="text-align: center;">Your Personalized Porch Packages</h2>
+                    <p style="text-align: center; color: var(--gray);">See how amazing your porch could look this fall! Choose your favorite package below.</p>
+                </div>
+
+                <div class="results-grid" id="resultsGrid">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>PorchDecor</h4>
+                    <p>Connecting communities through seasonal celebrations</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="holidays.html">Holidays</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Get Started</h4>
+                    <ul>
+                        <li><a href="consumer.html">For Consumers</a></li>
+                        <li><a href="grower.html">For Growers</a></li>
+                        <li><a href="logistics.html">For Logistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect</h4>
+                    <p>Email: hello@porchdecor.com</p>
+                    <p>Follow our journey</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PorchDecor. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="visualizer.js"></script>
+</body>
+</html>
